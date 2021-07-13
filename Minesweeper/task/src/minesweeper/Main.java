@@ -1,15 +1,14 @@
 package minesweeper;
 
+import java.util.Scanner;
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println(".X.......");
-        System.out.println(".....X..X");
-        System.out.println("....X....");
-        System.out.println("......X..");
-        System.out.println("..X......");
-        System.out.println("....X....");
-        System.out.println("..X......");
-        System.out.println("..X......");
-        System.out.println("......X..");
+        Scanner scanner = new Scanner(System.in);
+        int mines = scanner.nextInt();
+        MinesField minesField = new MinesField(mines);
+        System.out.println(minesField.getOptimizedMinesField());
     }
 }
+

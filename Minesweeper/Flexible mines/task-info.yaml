@@ -102,6 +102,12 @@ files:
         }
     }
   learner_created: false
+- name: src/minesweeper/MinesField.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/77/stages/427/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 13 Jul 2021 18:43:16 UTC
 record: -1
