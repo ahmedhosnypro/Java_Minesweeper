@@ -6,6 +6,8 @@ import java.util.Random;
 public class MinesField {
     Random random = new Random();
     private final char[][] minesField = new char[9][9];
+    int[][] binaryField = new int[9][9];
+    private final char[][] hiddenMinesField = new char[9][9];
 
     public MinesField(int mines) {
         for (char[] chars : minesField) {
@@ -21,38 +23,23 @@ public class MinesField {
                 }
             }
         }
-    }
 
-    public String getOptimizedMinesField() {
-        StringBuilder out = new StringBuilder();
-        for (char[] chars : minesField) {
-            out.append(new String(chars));
-            out.append('\n');
-        }
-        return out.toString().trim();
-    }
-
-    private int[][] minesFieldToBinary() {
-        int[][] out = new int[9][9];
+        //binaryField
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (minesField[i][j] == 'X')
-                    out[i][j] = 1;
+                    binaryField[i][j] = 1;
                 else
-                    out[i][j] = 0;
+                    binaryField[i][j] = 0;
             }
         }
-        return out;
-    }
 
-    private char[][] getHint() {
-        int[][] binaryField = minesFieldToBinary();
-        char[][] hints = new char[9][9];
+        //hiddenMinesField
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int x;
                 if (binaryField[i][j] == 1) {
-                    hints[i][j] = 'X';
+                    hiddenMinesField[i][j] = '.';
                 } else {
                     if (i == 0 && j == 0) { //fst Corner
                         x = binaryField[i][j + 1]
@@ -86,25 +73,67 @@ public class MinesField {
                                 + binaryField[i][j - 1] + binaryField[i][j + 1]
                                 + binaryField[i + 1][j - 1] + binaryField[i + 1][j] + binaryField[i + 1][j + 1];
                     }
-                    if(x ==0)
-                        hints[i][j] = '.';
+                    if (x == 0)
+                        hiddenMinesField[i][j] = '.';
                     else
-                        hints[i][j] = (char) (x +48);
-
+                        hiddenMinesField[i][j] = (char) (x + 48);
                 }
-
             }
         }
 
-        return hints;
     }
 
-    public String getOptimizedHint(){
+
+    public char[][] getMinesField() {
+        return minesField;
+    }
+
+    public char[][] getHiddenMinesField() {
+        return hiddenMinesField;
+    }
+
+    public String getOptimizedMinesField() {
         StringBuilder out = new StringBuilder();
-        for (char[] chars : getHint()) {
-            out.append(new String(chars));
-            out.append('\n');
+        out.append(" |123456789|\n" +
+                "-|---------|\n");
+        int i = 1;
+        for (char[] chars : minesField) {
+            out.append(i).append('|');
+            out.append(new String(chars)).append('|').append('\n');
+            i++;
         }
+        out.append("-|---------|");
         return out.toString().trim();
+    }
+
+    public String getOptimizedBinaryField() {
+        StringBuilder out = new StringBuilder();
+        out.append(" |123456789|\n" +
+                "-|---------|\n");
+        int i = 1;
+        for (int[] ints : binaryField) {
+            out.append(i).append('|');
+            for (int f : ints) {
+                out.append(f);
+            }
+            out.append('|').append('\n');
+            i++;
+        }
+        out.append("-|---------|");
+        return out.toString();
+    }
+
+    public String getOptimizedHint() {
+        StringBuilder out = new StringBuilder();
+        out.append(" |123456789|\n" +
+                "-|---------|\n");
+        int i = 1;
+        for (char[] chars : hiddenMinesField) {
+            out.append(i).append('|');
+            out.append(new String(chars)).append('|').append('\n');
+            i++;
+        }
+        out.append("-|---------|");
+        return out.toString();
     }
 }
