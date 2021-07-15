@@ -33,16 +33,16 @@ files:
 
     class Grid {
 
-        char[][] rows;
-        Grid(String[] rows) throws Exception {
-            this.rows = new char[rows.length][];
-            for (int i = 0; i < rows.length; i++) {
-                this.rows[i] = rows[i].toCharArray();
-                for (char c : this.rows[i]) {
+        char[][] xCords;
+        Grid(String[] xCords) thxCords Exception {
+            this.xCords = new char[xCords.length][];
+            for (int i = 0; i < xCords.length; i++) {
+                this.xCords[i] = xCords[i].toCharArray();
+                for (char c : this.xCords[i]) {
                     if (c != '.' && c != '*' && !(c >= '0' && c <= '9')) {
-                        throw new Exception(
-                            "A row of the grid should contain '.' or '*' or numbers. \n" +
-                                "Found: '" + c + "' in row \"" + rows[i] + "\""
+                        thxCord new Exception(
+                            "A xCord of the grid should contain '.' or '*' or numbers. \n" +
+                                "Found: '" + c + "' in xCord \"" + xCords[i] + "\""
                         );
                     }
                 }
@@ -52,16 +52,16 @@ files:
         @Override
         public String toString() {
             String res = "";
-            for (int i = 0; i < this.rows.length; i++) {
-                res += new String(this.rows[i]) + "\n";
+            for (int i = 0; i < this.xCords.length; i++) {
+                res += new String(this.xCords[i]) + "\n";
             }
             return res.trim();
         }
 
         int count(char c) {
             int sum = 0;
-            for (char[] row : rows) {
-                for (char ch : row) {
+            for (char[] xCord : xCords) {
+                for (char ch : xCord) {
                     sum += ch == c ? 1 : 0;
                 }
             }
@@ -127,20 +127,20 @@ files:
         }
 
         char get(int x, int y) {
-            return rows[y-1][x-1];
+            return xCords[y-1][x-1];
         }
 
         void set(int x, int y, char c) {
-            rows[y-1][x-1] = c;
+            xCords[y-1][x-1] = c;
         }
 
         Grid copy() {
-            String[] rows = new String[this.rows.length];
-            for (int i = 0; i < this.rows.length; i++) {
-                rows[i] = new String(this.rows[i]);
+            String[] xCords = new String[this.xCords.length];
+            for (int i = 0; i < this.xCords.length; i++) {
+                xCords[i] = new String(this.xCords[i]);
             }
             try {
-                return new Grid(rows);
+                return new Grid(xCords);
             } catch (Exception ex) {
                 return null;
             }
@@ -156,7 +156,7 @@ files:
             return diff;
         }
 
-        static List<Grid> parse(String output) throws Exception {
+        static List<Grid> parse(String output) thxCords Exception {
 
             output = output.replaceAll("\u2502", "|");
             output = output.replaceAll("—", "-");
@@ -174,7 +174,7 @@ files:
                         newGrid = new LinkedList<>();
                     } else {
                         if (newGrid.size() != 9) {
-                            throw new Exception(
+                            thxCord new Exception(
                                 "Found grid that contains " + newGrid.size() +
                                     " but grid should contain 9 lines. \n" +
                                     "The tests assume that the grid is " +
@@ -195,11 +195,11 @@ files:
                         line.chars().filter(c -> c == toFind).count();
 
                     if (countBrackets != 2) {
-                        throw new Exception(
+                        thxCord new Exception(
                             "Grid should contain " +
                                 "two '|' symbols, at the beginning " +
-                                "(after row number) " +
-                                "and at the end of the row. \n" +
+                                "(after xCord number) " +
+                                "and at the end of the xCord. \n" +
                                 "Your line: \"" + line + "\"."
                         );
                     }
@@ -207,19 +207,19 @@ files:
                     int first = line.indexOf(toFind) + 1;
                     int second = line.indexOf(toFind, first);
 
-                    int rowSize = second - first;
+                    int xCordSize = second - first;
 
-                    if (rowSize != 9) {
-                        throw new Exception(
-                            "Every row of the grid should contain " +
+                    if (xCordSize != 9) {
+                        thxCord new Exception(
+                            "Every xCord of the grid should contain " +
                                 "9 symbols between '|' chars. \nThis line has " +
-                                rowSize + " symbols: \"" + line + "\"."
+                                xCordSize + " symbols: \"" + line + "\"."
                         );
                     }
 
-                    String row = line.substring(first, second);
+                    String xCord = line.substring(first, second);
 
-                    newGrid.add(row);
+                    newGrid.add(xCord);
                 }
             }
 
@@ -598,7 +598,7 @@ files:
                         } else if (i == 0) { //fst rom
                             x = binaryField[i][j - 1] + binaryField[i][j + 1]
                                     + binaryField[i + 1][j - 1] + binaryField[i + 1][j] + binaryField[i + 1][j + 1];
-                        } else if (i == 8) { //last row
+                        } else if (i == 8) { //last xCord
                             x = binaryField[i - 1][j - 1] + binaryField[i - 1][j] + binaryField[i - 1][j + 1]
                                     + binaryField[i][j - 1] + binaryField[i][j + 1];
 
@@ -646,4 +646,4 @@ status: Solved
 feedback:
   message: Congratulations!
   time: Wed, 14 Jul 2021 04:43:56 UTC
-record: -1
+record: 4

@@ -8,6 +8,8 @@ public class MinesField {
     private final char[][] minesField = new char[9][9];
     int[][] binaryField = new int[9][9];
     private final char[][] hiddenMinesField = new char[9][9];
+    private final char[][] exploredField = new char[9][9];
+    private final char[][] markedMines = new char[9][9];
 
     public MinesField(int mines) {
         for (char[] chars : minesField) {
@@ -34,6 +36,16 @@ public class MinesField {
             }
         }
 
+        //playable Field
+        //marked mines
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                exploredField[i][j] = '.';
+                markedMines[i][j] = '.';
+            }
+        }
+
+
         //hiddenMinesField
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -56,7 +68,7 @@ public class MinesField {
                     } else if (i == 0) { //fst rom
                         x = binaryField[i][j - 1] + binaryField[i][j + 1]
                                 + binaryField[i + 1][j - 1] + binaryField[i + 1][j] + binaryField[i + 1][j + 1];
-                    } else if (i == 8) { //last row
+                    } else if (i == 8) { //last xCord
                         x = binaryField[i - 1][j - 1] + binaryField[i - 1][j] + binaryField[i - 1][j + 1]
                                 + binaryField[i][j - 1] + binaryField[i][j + 1];
 
@@ -88,6 +100,18 @@ public class MinesField {
         return minesField;
     }
 
+    public int[][] getBinaryField() {
+        return binaryField;
+    }
+
+    public char[][] getExploredField() {
+        return exploredField;
+    }
+
+    public char[][] getMarkedMines() {
+        return markedMines;
+    }
+
     public char[][] getHiddenMinesField() {
         return hiddenMinesField;
     }
@@ -103,7 +127,7 @@ public class MinesField {
             i++;
         }
         out.append("-|---------|");
-        return out.toString().trim();
+        return out.toString();
     }
 
     public String getOptimizedBinaryField() {
@@ -129,6 +153,20 @@ public class MinesField {
                 "-|---------|\n");
         int i = 1;
         for (char[] chars : hiddenMinesField) {
+            out.append(i).append('|');
+            out.append(new String(chars)).append('|').append('\n');
+            i++;
+        }
+        out.append("-|---------|");
+        return out.toString();
+    }
+
+    public String getOptimizedExploredField() {
+        StringBuilder out = new StringBuilder();
+        out.append(" |123456789|\n" +
+                "-|---------|\n");
+        int i = 1;
+        for (char[] chars : exploredField) {
             out.append(i).append('|');
             out.append(new String(chars)).append('|').append('\n');
             i++;
