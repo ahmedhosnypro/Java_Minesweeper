@@ -2,7 +2,6 @@ package minesweeper;
 
 import java.util.Scanner;
 
-///create non calling methods
 public class PLay {
     static Scanner scanner = new Scanner(System.in);
 
@@ -10,13 +9,6 @@ public class PLay {
         if (isAllFree(minesField) || isOnlyMinesMarked(minesField)) {
             System.out.println("Congratulations! You found all the mines!");
         } else {
-//            for (int i = 0; i < 9; i++) {
-//                for (int j = 0; j < 9; j++) {
-//                    if (minesField.getMarkedMines()[i][j] == '*')
-//                        minesField.getExploredField()[i][j] = '*';
-//                }
-//            }
-
             int xCord;
             int yCord;
             while (true) {
@@ -99,7 +91,9 @@ public class PLay {
             play(minesField);
         } else if (isEmptyAndNoMinesAround(minesField, xCord, yCord)) {
             minesField.getExploredField()[xCord][yCord] = '/';
-            freeCell1(minesField, xCord, yCord);
+            for (int i =0; i<81; i++){
+                patch(minesField);
+            }
             System.out.println();
             System.out.println(minesField.getOptimizedExploredField());
             play(minesField);
@@ -118,28 +112,6 @@ public class PLay {
         System.out.println();
         System.out.println(minesField.getOptimizedExploredField());
         play(minesField);
-    }
-
-    private static void freeCell(MinesField minesField, int xCord, int yCord) {
-        freeCellNorth(minesField, xCord, yCord);
-        freeCellSouth(minesField, xCord, yCord);
-        freeCellEast(minesField, xCord, yCord);
-        freeCellWest(minesField, xCord, yCord);
-    }
-
-    private static void freeCell1(MinesField minesField, int xCord, int yCord) {
-        freeCellNorth(minesField, xCord, yCord);
-        freeCellSouth(minesField, xCord, yCord);
-        freeCellEast(minesField, xCord, yCord);
-        freeCellWest(minesField, xCord, yCord);
-        for (int i =0; i<81; i++){
-            patch(minesField);
-        }
-
-//        freeCellNorth_East(minesField, xCord, yCord);
-//        freeCellNorth_West(minesField, xCord, yCord);
-//        freeCellSouth_East(minesField, xCord, yCord);
-//        freeCellSouth_West(minesField, xCord, yCord);
     }
 
     private static void patchFreeTool(MinesField minesField, int xCord, int yCord) {
@@ -235,7 +207,6 @@ public class PLay {
                         }
                     }
                 }
-
             }
         }
     }
@@ -261,214 +232,6 @@ public class PLay {
         return minesField.getMarkedMines()[xCord][yCord] == '*';
     }
 
-    private static void freeCellNorth(MinesField minesField, int xCord, int yCord) {
-        while (xCord > 0) {
-            if (isEmptyAndMinesAround(minesField, xCord - 1, yCord)) {
-                minesField.getExploredField()[xCord - 1][yCord] = minesField.getHiddenMinesField()[xCord - 1][yCord];
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord - 1, yCord)) {
-                minesField.getExploredField()[xCord - 1][yCord] = '/';
-                xCord--;
-            }
-            //East
-            int east = yCord;
-            while (east < 8) {
-                if (isEmptyAndMinesAround(minesField, xCord, east + 1)) {
-                    minesField.getExploredField()[xCord][east + 1] = minesField.getHiddenMinesField()[xCord][east + 1];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, xCord, east + 1)) {
-                    minesField.getExploredField()[xCord][east + 1] = '/';
-                    east++;
-                }
-            }
-            //West
-            int west = yCord;
-            while (west > 0) {
-                if (isEmptyAndMinesAround(minesField, xCord, west - 1)) {
-                    minesField.getExploredField()[xCord][west - 1] = minesField.getHiddenMinesField()[xCord][west - 1];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, xCord, west - 1)) {
-                    minesField.getExploredField()[xCord][west - 1] = '/';
-                    west--;
-                }
-            }
-        }
-    }
-
-    private static void freeCellSouth(MinesField minesField, int xCord, int yCord) {
-        while (xCord < 8) {
-            if (isEmptyAndMinesAround(minesField, xCord + 1, yCord)) {
-                minesField.getExploredField()[xCord + 1][yCord] = minesField.getHiddenMinesField()[xCord + 1][yCord];
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord + 1, yCord)) {
-                minesField.getExploredField()[xCord + 1][yCord] = '/';
-                xCord++;
-            }
-            //East
-            int east = yCord;
-            while (east < 8) {
-                if (isEmptyAndMinesAround(minesField, xCord, east + 1)) {
-                    minesField.getExploredField()[xCord][east + 1] = minesField.getHiddenMinesField()[xCord][east + 1];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, xCord, east + 1)) {
-                    minesField.getExploredField()[xCord][east + 1] = '/';
-                    east++;
-                }
-            }
-            //West
-            int west = yCord;
-            while (west > 0) {
-                if (isEmptyAndMinesAround(minesField, xCord, west - 1)) {
-                    minesField.getExploredField()[xCord][west - 1] = minesField.getHiddenMinesField()[xCord][west - 1];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, xCord, west - 1)) {
-                    minesField.getExploredField()[xCord][west - 1] = '/';
-                    west--;
-                }
-            }
-        }
-    }
-
-    private static void freeCellEast(MinesField minesField, int xCord, int yCord) {
-        while (yCord < 8) {
-            if (isEmptyAndMinesAround(minesField, xCord, yCord + 1)) {
-                minesField.getExploredField()[xCord][yCord + 1] = minesField.getHiddenMinesField()[xCord][yCord + 1];
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord, yCord + 1)) {
-                minesField.getExploredField()[xCord][yCord + 1] = '/';
-                yCord++;
-            }
-            //North
-            int north = xCord;
-            while (north > 0) {
-                if (isEmptyAndMinesAround(minesField, north - 1, yCord)) {
-                    minesField.getExploredField()[north - 1][yCord] = minesField.getHiddenMinesField()[north - 1][yCord];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, north - 1, yCord)) {
-                    minesField.getExploredField()[north - 1][yCord] = '/';
-                    north--;
-                }
-            }
-            //South
-            int south = xCord;
-            while (south < 8) {
-                if (isEmptyAndMinesAround(minesField, south + 1, yCord)) {
-                    minesField.getExploredField()[south + 1][yCord] = minesField.getHiddenMinesField()[south + 1][yCord];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, south + 1, yCord)) {
-                    minesField.getExploredField()[south + 1][yCord] = '/';
-                    south++;
-                }
-            }
-        }
-    }
-
-    private static void freeCellWest(MinesField minesField, int xCord, int yCord) {
-        while (yCord > 0) {
-            if (isEmptyAndMinesAround(minesField, xCord, yCord - 1)) {
-                minesField.getExploredField()[xCord][yCord - 1] = minesField.getHiddenMinesField()[xCord][yCord - 1];
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord, yCord - 1)) {
-                minesField.getExploredField()[xCord][yCord - 1] = '/';
-                yCord--;
-            }
-            //North
-            int north = xCord;
-            while (north > 0) {
-                if (isEmptyAndMinesAround(minesField, north - 1, yCord)) {
-                    minesField.getExploredField()[north - 1][yCord] = minesField.getHiddenMinesField()[north - 1][yCord];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, north - 1, yCord)) {
-                    minesField.getExploredField()[north - 1][yCord] = '/';
-                    north--;
-                }
-            }
-            //South
-            int south = xCord;
-            while (south < 8) {
-                if (isEmptyAndMinesAround(minesField, south + 1, yCord)) {
-                    minesField.getExploredField()[south + 1][yCord] = minesField.getHiddenMinesField()[south + 1][yCord];
-                    break;
-                } else if (isEmptyAndNoMinesAround(minesField, south + 1, yCord)) {
-                    minesField.getExploredField()[south + 1][yCord] = '/';
-                    south++;
-                }
-            }
-        }
-    }
-
-    private static void freeCellNorth_East(MinesField minesField, int xCord, int yCord) {
-        while (xCord > 0 && yCord < 8) {
-            freeCellNorth(minesField, xCord - 1, yCord + 1);
-            freeCellEast(minesField, xCord - 1, yCord + 1);
-            if (isEmptyAndMinesAround(minesField, xCord - 1, yCord + 1)) {
-                minesField.getExploredField()[xCord - 1][yCord + 1] = minesField.getHiddenMinesField()[xCord - 1][yCord + 1];
-                freeCellNorth(minesField, xCord - 1, yCord + 1);
-                freeCellEast(minesField, xCord - 1, yCord + 1);
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord - 1, yCord + 1)) {
-                minesField.getExploredField()[xCord - 1][yCord + 1] = '/';
-                xCord--;
-                yCord++;
-            }
-        }
-    }
-
-    private static void freeCellNorth_West(MinesField minesField, int xCord, int yCord) {
-        while (xCord > 0 && yCord > 0) {
-            freeCellNorth(minesField, xCord - 1, yCord - 1);
-            freeCellWest(minesField, xCord - 1, yCord - 1);
-
-            if (isEmptyAndMinesAround(minesField, xCord - 1, yCord - 1)) {
-                minesField.getExploredField()[xCord - 1][yCord - 1] = minesField.getHiddenMinesField()[xCord - 1][yCord - 1];
-                freeCellNorth(minesField, xCord - 1, yCord - 1);
-                freeCellWest(minesField, xCord - 1, yCord - 1);
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord - 1, yCord - 1)) {
-                minesField.getExploredField()[xCord - 1][yCord - 1] = '/';
-                xCord--;
-                yCord--;
-            }
-        }
-    }
-
-    private static void freeCellSouth_East(MinesField minesField, int xCord, int yCord) {
-        while (xCord < 8 && yCord < 8) {
-            freeCellSouth(minesField, xCord + 1, yCord + 1);
-            freeCellEast(minesField, xCord + 1, yCord + 1);
-
-            if (isEmptyAndMinesAround(minesField, xCord + 1, yCord + 1)) {
-                minesField.getExploredField()[xCord + 1][yCord + 1] = minesField.getHiddenMinesField()[xCord + 1][yCord + 1];
-                freeCellSouth(minesField, xCord + 1, yCord + 1);
-                freeCellEast(minesField, xCord + 1, yCord + 1);
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord + 1, yCord + 1)) {
-                minesField.getExploredField()[xCord + 1][yCord + 1] = '/';
-                xCord++;
-                yCord++;
-            }
-        }
-
-    }
-
-    private static void freeCellSouth_West(MinesField minesField, int xCord, int yCord) {
-        while (xCord < 8 && yCord > 0) {
-            freeCellSouth(minesField, xCord + 1, yCord - 1);
-            freeCellWest(minesField, xCord + 1, yCord - 1);
-
-            if (isEmptyAndMinesAround(minesField, xCord + 1, yCord - 1)) {
-                minesField.getExploredField()[xCord + 1][yCord - 1] = minesField.getHiddenMinesField()[xCord + 1][yCord - 1];
-                freeCellSouth(minesField, xCord + 1, yCord - 1);
-                freeCellWest(minesField, xCord + 1, yCord - 1);
-                break;
-            } else if (isEmptyAndNoMinesAround(minesField, xCord + 1, yCord - 1)) {
-                minesField.getExploredField()[xCord + 1][yCord - 1] = '/';
-                xCord++;
-                yCord--;
-            }
-        }
-    }
-
     private static int[] getCoordinates() {
         System.out.print("Set/unset mines marks or claim a cell as free: ");
         int xCord = -1;
@@ -484,8 +247,4 @@ public class PLay {
         }
         return new int[]{yCord - 1, xCord - 1};
     }
-//
-//    private static boolean isValidCoordinates(int xCord, int yCord) {
-//        return (xCord >= 0 && xCord <= 8) && (yCord >= 0 && yCord <= 8);
-//    }
 }
