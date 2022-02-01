@@ -8,15 +8,7 @@ files:
 
     public class Main {
         public static void main(String[] args) {
-            System.out.println(".X.......");
-            System.out.println(".....X..X");
-            System.out.println("....X....");
-            System.out.println("......X..");
-            System.out.println("..X......");
-            System.out.println("....X....");
-            System.out.println("..X......");
-            System.out.println("..X......");
-            System.out.println("......X..");
+            // write your code here
         }
     }
   learner_created: false
@@ -153,7 +145,7 @@ files:
   learner_created: false
 - name: src/minesweeper/MinesField.java
   visible: true
-  text: |
+  text: |-
     package minesweeper;
 
     import java.util.Arrays;
@@ -183,9 +175,9 @@ files:
             return minesField;
         }
 
-        public String getOptimizedMinesField(){
+        public String getOptimizedMinesField() {
             StringBuilder out = new StringBuilder();
-            for (char[] chars :minesField){
+            for (char[] chars : minesField) {
                 out.append(new String(chars));
                 out.append('\n');
             }
@@ -197,5 +189,5 @@ feedback_link: https://hyperskill.org/projects/77/stages/428/implement#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: Wed, 14 Jul 2021 02:19:22 UTC
+  time: Tue, 01 Feb 2022 21:40:45 UTC
 record: 3

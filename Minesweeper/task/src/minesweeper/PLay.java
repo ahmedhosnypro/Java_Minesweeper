@@ -91,7 +91,7 @@ public class PLay {
             play(minesField);
         } else if (isEmptyAndNoMinesAround(minesField, xCord, yCord)) {
             minesField.getExploredField()[xCord][yCord] = '/';
-            for (int i =0; i<81; i++){
+            for (int i = 0; i < 81; i++) {
                 patch(minesField);
             }
             System.out.println();
